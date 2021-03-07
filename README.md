@@ -5,6 +5,7 @@ crontab for cls news
 本项目是用go实现的，实现财联社新闻及每日热门板块的定时消息推送
 
 ##项目运行
+    
     配置GOPROXY
     # Enable the go modules feature
     export GO111MODULE=on
