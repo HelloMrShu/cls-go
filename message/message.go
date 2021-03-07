@@ -6,7 +6,7 @@ import (
 )
 
 func SendNotice(notice string) bool {
-    webhook := "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=f388073a-cdf7-4738-b43b-ede3abb4d692"
+    webhook := ""//此处填写企业微信的webhook地址
 
     req, _ := http.NewRequest("POST", webhook, strings.NewReader(notice))
     req.Header.Set("Content-Type","application/json")
