@@ -1,17 +1,17 @@
 package cls
 
 import (
-    "fmt"
-    "net/http"
-    "io/ioutil"
+	"encoding/json"
+	msg "finance/message"
+	util "finance/utils"
+	"fmt"
+	"io/ioutil"
+	"net/http"
 	"strconv"
 	"strings"
-	"encoding/json"
-	util "finance/utils"
-    msg "finance/message"
 )
 
-//cls hot plate struct
+// HotUrl cls hot plate struct
 type HotUrl struct {
     host string
     path string

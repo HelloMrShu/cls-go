@@ -1,13 +1,13 @@
 package cls
 
 import (
-	"fmt"
-    "net/http"
-    "time"
 	"encoding/json"
-	"io/ioutil"
 	msg "finance/message"
 	util "finance/utils"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"time"
 )
 
 type ClsUrl struct {

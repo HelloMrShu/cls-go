@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
-	"time"
 	cls "finance/cls"
-	"math/rand"
 	util "finance/utils"
+	"fmt"
+	"math/rand"
+	"time"
 )
 
 func getHotSendHours() map[int]bool {

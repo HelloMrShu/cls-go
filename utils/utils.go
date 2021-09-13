@@ -1,9 +1,9 @@
 package utils
 
 import (
-	"github.com/go-redis/redis"	
-	"time"
+	"github.com/go-redis/redis"
 	"math/rand"
+	"time"
 )
 
 var rc *redis.Client
@@ -11,7 +11,7 @@ var layout string = "2006-01-02 15:04:05"
 
 func GetRedisClient() *redis.Client {
 
-	if (rc != nil) {
+	if rc != nil {
         return rc
     }
 

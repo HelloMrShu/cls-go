@@ -1,8 +1,8 @@
 package message
 
 import (
-	"strings"
 	"net/http"
+	"strings"
 )
 
 func SendNotice(notice string) bool {
