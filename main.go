@@ -47,8 +47,8 @@ func main() {
 		ts := <- ch
 		fmt.Println("新闻消息上次投递时间：", util.GetTsToDate(ts))
 	
-		new_ts := cls.NewsRequest(ts + 10)
-		ch <- new_ts
+		newTs := cls.NewsRequest(ts + 10)
+		ch <- newTs
 		
 		if count < 20 {
 			count = count + 1
