@@ -12,21 +12,21 @@ var layout string = "2006-01-02 15:04:05"
 func GetRedisClient() *redis.Client {
 
 	if rc != nil {
-        return rc
-    }
+		return rc
+	}
 
-    return redis.NewClient(&redis.Options{
-    	Addr:     "localhost:6379",
-        Password: "", // no password set
-        DB:       0,  // use default DB
-    })
+	return redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
 }
 
 func GetCurDate() string {
 	return time.Now().Format(layout)
 }
 
-func GetCurTs() int64{
+func GetCurTs() int64 {
 	return time.Now().Unix()
 }
 
