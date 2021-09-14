@@ -25,7 +25,6 @@ func main() {
 		newTs := cls.NewsRequest(ts + 10)
 		ch <- newTs
 
-		fmt.Println(count)
 		if count < 20 {
 			count = count + 1
 		} else {
