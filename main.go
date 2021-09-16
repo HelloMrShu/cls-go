@@ -5,9 +5,9 @@ import (
 	"finance/cls"
 	util "finance/utils"
 	"fmt"
+	"io/ioutil"
 	"math/rand"
 	"time"
-	"io/ioutil"
 )
 
 var conf *Conf
@@ -23,21 +23,21 @@ type NewsPlate struct {
 }
 
 type ClsInfo struct {
-	Hot HotPlate `json:"hot"`
+	Hot  HotPlate  `json:"hot"`
 	News NewsPlate `json:"news"`
 }
 
 type Conf struct {
-	Webhook string `json:"webhook"`
-	Cls ClsInfo `json:"cls"`
+	Webhook string  `json:"webhook"`
+	Cls     ClsInfo `json:"cls"`
 }
 
-func init()  {
+func init() {
 	filePath := "./conf/dev.json"
 
 	var (
 		data []byte
-		err error
+		err  error
 	)
 	data, err = ioutil.ReadFile(filePath)
 	if err != nil {
