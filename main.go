@@ -1,55 +1,16 @@
 package main
 
 import (
-	"encoding/json"
+	"finance/app"
 	"finance/cls"
 	util "finance/utils"
 	"fmt"
-	"io/ioutil"
 	"math/rand"
 	"time"
 )
 
-var conf *Conf
-
-type HotPlate struct {
-	Host string `json:"host"`
-	Path string `json:"path"`
-}
-
-type NewsPlate struct {
-	Host string `json:"host"`
-	Path string `json:"path"`
-}
-
-type ClsInfo struct {
-	Hot  HotPlate  `json:"hot"`
-	News NewsPlate `json:"news"`
-}
-
-type Conf struct {
-	Webhook string  `json:"webhook"`
-	Cls     ClsInfo `json:"cls"`
-}
-
 func init() {
-	filePath := "./conf/dev.json"
-
-	var (
-		data []byte
-		err  error
-	)
-	data, err = ioutil.ReadFile(filePath)
-	if err != nil {
-		fmt.Println("read conf file err", err)
-		return
-	}
-
-	er := json.Unmarshal(data, &conf)
-	if er != nil {
-		fmt.Println("json unMarsha1 conf file err", er)
-		return
-	}
+	app.NewCycle()
 }
 
 func main() {
@@ -57,7 +18,6 @@ func main() {
 	ch <- time.Now().Unix()
 
 	count := 1
-
 	for {
 		fmt.Println("热门板块消息推送...", util.GetCurDate())
 		cls.HotRequest()
