@@ -41,17 +41,15 @@ type Industry struct {
 }
 
 func HotRequest() bool {
-    hotHost := "https://x-quote.cls.cn"
-    hotPath := "/web_quote/plate/hot_plate"
-
-    hp := HotUrl{hotHost, hotPath, "CailianpressWeb", "industry", "change", util.GenRandStrings(16)}
+	hot := app.Conf.Cls.Hot
+    hp := HotUrl{hot.Host, hot.Path, "CailianpressWeb", "industry", "change", util.GenRandStrings(16)}
     url := fmt.Sprintf("%s%s?app=%s&type=%s&way=%s&sign=%s", hp.host, hp.path, hp.app, hp.category, hp.way, hp.sign)
 
     req, _ := http.NewRequest("GET", url, nil)
     req.Header.Set("Content-Type","application/json")
     req.Header.Set("Charset","utf8")
     req.Header.Set("Referer","https://www.cls.cn")
-    req.Header.Set("User-Agent", ua) 
+    req.Header.Set("User-Agent", app.Conf.Ua)
 
     resp, err := (&http.Client{}).Do(req)
     if err != nil {
