@@ -5,7 +5,6 @@ import (
 	"finance/cls"
 	util "finance/utils"
 	"fmt"
-	"math/rand"
 	"time"
 )
 
@@ -15,12 +14,17 @@ func init() {
 
 func main() {
 	ch := make(chan int64, 1)
-	ch <- time.Now().Unix()
+	ch <- time.Now().Unix() - 10
 
 	count := 1
 	for {
-		fmt.Println("热门板块消息推送...", util.GetCurDate())
-		cls.HotRequest()
+		hour := time.Now().Hour()
+		hotHours := util.GetHotPlateSendHours()
+		_, ok := hotHours[hour]
+		if ok {
+			fmt.Println("热门板块消息推送...", util.GetCurDate())
+			cls.HotRequest()
+		}
 
 		ts := <-ch
 		fmt.Println("新闻消息上次投递时间：", util.GetTsToDate(ts))
@@ -28,13 +32,13 @@ func main() {
 		newTs := cls.NewsRequest(ts + 10)
 		ch <- newTs
 
-		if count < 20 {
+		if count < 10 {
 			count = count + 1
 		} else {
 			count = 1
 		}
 
-		delay := count * (rand.Intn(5) + 15)
+		delay := count
 		time.Sleep(time.Duration(delay) * time.Second)
 	}
 }

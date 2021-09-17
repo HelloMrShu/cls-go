@@ -1,11 +1,9 @@
 package message
 
 import (
-	"fmt"
-	"net/http"
-	"os"
-	"strings"
 	"finance/app"
+	"net/http"
+	"strings"
 )
 
 func SendNotice(notice string) bool {
@@ -17,14 +15,12 @@ func SendNotice(notice string) bool {
     req.Header.Set("Charset","utf8")
 
     resp, err := (&http.Client{}).Do(req)
+	defer resp.Body.Close()
 
-	fmt.Println(resp, err)
-	os.Exit(0)
-    if err != nil {
+	if err != nil {
 		return false
     }
 
-    defer resp.Body.Close()
-    return true 
+    return true
 }
 

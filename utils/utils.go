@@ -52,3 +52,10 @@ func GenRandStrings(max int) string {
 	}
 	return string(result)
 }
+
+func GetHotPlateSendHours() map[int]int {
+	m := make(map[int]int)
+	m[12] = 12
+	m[15] = 15
+	return m
+}

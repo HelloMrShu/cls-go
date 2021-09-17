@@ -1,5 +1,6 @@
 {
-  "webhook": "",
+  "webhook": "https://oapi.dingtalk.com/robot/send?access_token=5157c9086382d989fa4dd1a09d7c8523a32adb8dba9885f5437ef249dbc5b1a3",
+  "secret": "SEC2957533d9c1da48d3248d6279819ac8896798f99c3ccd0484f438bb3f54032bb",
   "cls":{
     "hot": {
       "host": "https://x-quote.cls.cn",

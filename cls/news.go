@@ -142,18 +142,18 @@ func NewsRequest(lt int64) int64 {
 	news := r.Data.RollData
 
 	if updateNum == 0 {
-		return lt
+		return time.Now().Unix()
 	}
 
-	new_ts := 0
+	newTs := 0
 	for _, v := range news {
 		text := GenNewsMessage(v.Brief)
 		msg.SendNotice(text)
-		new_ts = v.SortScore
+		newTs = v.SortScore
 
 		time.Sleep(time.Duration(2) * time.Second)
 	}
-	return int64(new_ts)
+	return int64(newTs)
 }
 
 func GenNewsMessage(data string) string {
