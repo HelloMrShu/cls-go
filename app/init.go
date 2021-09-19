@@ -30,7 +30,7 @@ type Config struct {
 }
 
 func NewCycle() {
-	filePath := "./conf/dev.json"
+	filePath := "./conf/local.json"
 
 	var (
 		data []byte

@@ -67,7 +67,7 @@ func HotRequest() bool {
 	}
 
 	plates := make([]string, 0)
-	plates = append(plates, "当前热门板块: \n\n")
+	plates = append(plates, "当前热门板块: \n")
 	for _, v := range rs.Data {
 		change := strconv.FormatFloat(v.Change * 100, 'g', 2, 64)
 		plate := v.SecuName + "(" + change + "%)"
