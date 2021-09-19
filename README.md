@@ -1,8 +1,8 @@
 ## cls-go
-    crontab for cls news and hotplates
+    Request cls news and hotplates message and send to dingding group by robot
 
 ## 项目介绍
-    本项目是用go实现的，实现财联社新闻及每日热门板块的定时消息推送
+    本项目基于Go语言实现财联社新闻及每日热门板块的准实时消息推送
 
 ## 项目运行
     
@@ -12,5 +12,10 @@
     # Set the GOPROXY environment variable
     export GOPROXY=https://goproxy.io
   
-    执行go build 或者 go run 即可
+    执行：
+    1 go mod tidy
+    2 go build -o ./bin/finance main.go 
+    3 ./bin/finance
+    或者
+    1 go run main.go
 
