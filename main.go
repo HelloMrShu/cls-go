@@ -34,9 +34,15 @@ func main() {
 		}
 
 		ts := <-ch
-		newTs := cls.NewsRequest(ts)
-		ch <- newTs
-
-		time.Sleep(time.Duration(60) * time.Second)
+		delay := 0
+		if cls.CheckNewsMoment() {
+			newTs := cls.NewsRequest(ts)
+			ch <- newTs
+			delay = 60
+		} else {
+			ch <- time.Now().Unix()
+			delay = 900
+		}
+		time.Sleep(time.Duration(delay) * time.Second)
 	}
 }

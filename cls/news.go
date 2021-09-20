@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -127,4 +128,18 @@ func GenNewsMessage(data string) string {
 
 	notice, _ := json.Marshal(nt)
 	return string(notice)
+}
+
+func CheckNewsMoment() bool {
+	now := time.Now()
+	hour, err := strconv.Atoi(now.Format("15")) //小时
+
+	if err != nil {
+		return false
+	}
+
+	if hour > 22 && hour < 7 {
+		return false
+	}
+	return true
 }
