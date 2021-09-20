@@ -53,9 +53,10 @@ func GenRandStrings(max int) string {
 	return string(result)
 }
 
-func GetHotPlateSendHours() map[int]int {
-	m := make(map[int]int)
-	m[12] = 12
-	m[15] = 15
+func GetHotPlateMoment() map[string]bool {
+	m := make(map[string]bool)
+	m["12:01"] = true
+	m["15:01"] = true
+	m["12:35"] = true
 	return m
 }

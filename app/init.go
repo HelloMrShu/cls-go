@@ -9,13 +9,16 @@ import (
 var Conf *Config
 
 type HotPlate struct {
-	Host string `json:"host"`
-	Path string `json:"path"`
+	Host       string `json:"host"`
+	Path       string `json:"path"`
+	Refer      string `json:"refer"`
+	Categories string `json:"categories"`
 }
 
 type NewsPlate struct {
-	Host string `json:"host"`
-	Path string `json:"path"`
+	Host  string `json:"host"`
+	Path  string `json:"path"`
+	Refer string `json:"refer"`
 }
 
 type ClsInfo struct {
@@ -24,9 +27,11 @@ type ClsInfo struct {
 }
 
 type Config struct {
-	Webhook string  `json:"webhook"`
-	Cls     ClsInfo `json:"cls"`
-	Ua string `json:"ua"`
+	Webhook     string  `json:"webhook"`
+	Cls         ClsInfo `json:"cls"`
+	Ua          string  `json:"ua"`
+	ContentType string  `json:"content-type"`
+	Charset     string  `json:"charset"`
 }
 
 func NewCycle() {
@@ -38,7 +43,7 @@ func NewCycle() {
 	)
 	data, err = ioutil.ReadFile(filePath)
 	if err != nil {
-	fmt.Println("read conf file err", err)
+		fmt.Println("read conf file err", err)
 		return
 	}
 

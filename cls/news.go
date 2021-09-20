@@ -21,8 +21,8 @@ type Url struct {
 }
 
 type Result struct {
-	Error   int           `json:"error"`
-	Data    Data          `json:"data"`
+	Error int  `json:"error"`
+	Data  Data `json:"data"`
 }
 
 type Data struct {
@@ -31,34 +31,34 @@ type Data struct {
 }
 
 type Subjects struct {
-	SubjectID          int    `json:"subject_id"`
-	SubjectName        string `json:"subject_name"`
+	SubjectID   int    `json:"subject_id"`
+	SubjectName string `json:"subject_name"`
 }
 
 type News struct {
-	Level         string        `json:"level"`
-	Content       string        `json:"content"`
-	InRoll        int           `json:"in_roll"`
-	Recommend     int           `json:"recommend"`
-	Confirmed     int           `json:"confirmed"`
-	UserID        int           `json:"user_id"`
-	IsTop         int           `json:"is_top"`
-	Brief         string        `json:"brief"`
-	ID            int           `json:"id"`
-	Ctime         int           `json:"ctime"`
-	Type          int           `json:"type"`
-	Title         string        `json:"title"`
-	Bold          int           `json:"bold"`
-	SortScore     int           `json:"sort_score"`
-	CommentNum    int           `json:"comment_num"`
-	Status        int           `json:"status"`
-	Category      string        `json:"category"`
-	Shareurl      string        `json:"shareurl"`
-	ShareNum      int           `json:"share_num"`
-	SubTitles     []interface{} `json:"sub_titles"`
-	StockList     []interface{} `json:"stock_list"`
-	IsAd          int           `json:"is_ad"`
-	AudioURL      []string      `json:"audio_url"`
+	Level      string        `json:"level"`
+	Content    string        `json:"content"`
+	InRoll     int           `json:"in_roll"`
+	Recommend  int           `json:"recommend"`
+	Confirmed  int           `json:"confirmed"`
+	UserID     int           `json:"user_id"`
+	IsTop      int           `json:"is_top"`
+	Brief      string        `json:"brief"`
+	ID         int           `json:"id"`
+	Ctime      int           `json:"ctime"`
+	Type       int           `json:"type"`
+	Title      string        `json:"title"`
+	Bold       int           `json:"bold"`
+	SortScore  int           `json:"sort_score"`
+	CommentNum int           `json:"comment_num"`
+	Status     int           `json:"status"`
+	Category   string        `json:"category"`
+	Shareurl   string        `json:"shareurl"`
+	ShareNum   int           `json:"share_num"`
+	SubTitles  []interface{} `json:"sub_titles"`
+	StockList  []interface{} `json:"stock_list"`
+	IsAd       int           `json:"is_ad"`
+	AudioURL   []string      `json:"audio_url"`
 }
 
 type Txt struct {
@@ -66,20 +66,20 @@ type Txt struct {
 }
 
 type Notice struct {
-	Msgtype string `json:"msgtype"`
+	MsgType string `json:"msgtype"`
 	Text    Txt    `json:"text"`
 }
 
 func NewsRequest(lt int64) int64 {
-	nc := app.Conf.Cls.News
+	newsConf := app.Conf.Cls.News
 
-	st := Url{nc.Host, nc.Path, "CailianpressWeb", 1, lt, util.GenRandStrings(16)}
+	st := Url{newsConf.Host, newsConf.Path, "CailianpressWeb", 1, lt, util.GenRandStrings(16)}
 	url := fmt.Sprintf("%s%s?app=%s&hasFirstVipArticle=%d&lastTime=%d&sign=%s", st.host, st.path, st.app, st.hasFirstVipArticle, st.lastTime, st.sign)
 
 	req, _ := http.NewRequest("GET", url, nil)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Charset", "utf8")
-	req.Header.Set("Referer", "https://www.cls.cn")
+	req.Header.Set("Content-Type", app.Conf.ContentType)
+	req.Header.Set("Charset", app.Conf.Charset)
+	req.Header.Set("Referer", newsConf.Refer)
 	req.Header.Set("User-Agent", app.Conf.Ua)
 
 	resp, err := (&http.Client{}).Do(req)
@@ -107,12 +107,12 @@ func NewsRequest(lt int64) int64 {
 		return time.Now().Unix()
 	}
 
+	fmt.Println("新闻消息推送条数：", updateNum)
 	newTs := time.Now().Unix()
 	for _, v := range news {
-		text := GenNewsMessage(v.Brief)
-		msg.SendNotice(text)
+		msgInfo := GenNewsMessage(v.Brief)
+		msg.SendNotice(msgInfo)
 		newTs = int64(v.SortScore)
-		time.Sleep(time.Duration(1) * time.Second)
 	}
 	return newTs
 }
@@ -122,7 +122,7 @@ func GenNewsMessage(data string) string {
 	txt.Content = data
 
 	var nt Notice
-	nt.Msgtype = "text"
+	nt.MsgType = "text"
 	nt.Text = txt
 
 	notice, _ := json.Marshal(nt)

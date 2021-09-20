@@ -4,12 +4,17 @@
   "cls":{
     "hot": {
       "host": "https://x-quote.cls.cn",
-      "path": "/web_quote/plate/hot_plate"
+      "path": "/web_quote/plate/hot_plate",
+      "refer": "https://www.cls.cn/",
+      "categories": "industry,concept"
     },
     "news": {
       "host": "https://www.cls.cn",
-      "path": "/nodeapi/updateTelegraphList"
+      "path": "/nodeapi/updateTelegraphList",
+      "refer": "https://www.cls.cn/telegraph"
     }
   },
-  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36"
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36",
+  "content-type": "application/json",
+  "charset": "utf-8"
 }
