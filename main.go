@@ -3,12 +3,22 @@ package main
 import (
 	"finance/app"
 	"finance/cls"
+	"flag"
 	"strings"
 	"time"
 )
 
+var (
+	env string
+)
+
 func init() {
-	app.NewCycle()
+	flag.StringVar(&env, "c", "local", "conf path")
+	flag.Parse()
+	config := "./conf/" + env + ".json"
+
+	app.NewCycle(config)
+
 }
 
 func main() {

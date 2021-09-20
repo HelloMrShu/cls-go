@@ -34,14 +34,12 @@ type Config struct {
 	Charset     string  `json:"charset"`
 }
 
-func NewCycle() {
-	filePath := "./conf/local.json"
-
+func NewCycle(conf string) {
 	var (
 		data []byte
 		err  error
 	)
-	data, err = ioutil.ReadFile(filePath)
+	data, err = ioutil.ReadFile(conf)
 	if err != nil {
 		fmt.Println("read conf file err", err)
 		return
