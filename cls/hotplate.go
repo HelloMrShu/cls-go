@@ -48,8 +48,8 @@ func HotRequest(category string) bool {
 	url := fmt.Sprintf("%s%s?app=%s&type=%s&way=%s&sign=%s", hp.host, hp.path, hp.app, hp.category, hp.way, hp.sign)
 
 	req, _ := http.NewRequest("GET", url, nil)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Charset", "utf8")
+	req.Header.Set("Content-Type", app.Conf.ContentType)
+	req.Header.Set("Charset", app.Conf.Charset)
 	req.Header.Set("Referer", hotConf.Refer)
 	req.Header.Set("User-Agent", app.Conf.Ua)
 
