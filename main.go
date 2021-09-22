@@ -20,9 +20,9 @@ func init() {
 	app.NewCycle(config)
 
 	//设置output,默认为stderr,可以为任何io.Writer，比如文件*os.File
-	log.SetFormatter(&logrus.TextFormatter{})
+	log.SetFormatter(&app.LogFormatter{})
 	log.SetOutput(os.Stdout)
-	file, _ := os.OpenFile("./logs/app.log", os.O_CREATE|os.O_WRONLY, 0666)
+	file, _ := os.OpenFile("./logs/app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	log.SetOutput(file)
 	//设置最低loglevel
 	log.SetLevel(logrus.InfoLevel)
@@ -32,6 +32,8 @@ func main() {
 	ch := make(chan int64, 1)
 	ch <- time.Now().Unix() - 10
 
+	log.Info("test log")
+	os.Exit(0)
 	for {
 		if cls.CheckMoment() {
 			categories := strings.Split(app.Conf.Cls.Hot.Categories, ",")
