@@ -19,9 +19,19 @@ func (m *LogFormatter) Format(entry *logrus.Entry) ([]byte, error){
 	}
 
 	timestamp := entry.Time.Format("2006-01-02 15:04:05")
-	var newLog string
-	newLog = fmt.Sprintf("[%s] [%s] %s\n", timestamp, entry.Level, entry.Message)
+	prefix := fmt.Sprintf("%s %s message:\"%s\" ", timestamp, entry.Level, entry.Message)
+	b.WriteString(prefix)
 
-	b.WriteString(newLog)
+	if len(entry.Data) > 0 {
+		b.WriteString("data:\"")
+		for key, value := range entry.Data {
+			b.WriteString(key)
+			b.WriteByte('=')
+			fmt.Fprint(b, value)
+			b.WriteByte(',')
+		}
+		b.WriteString("\"\n")
+	}
+
 	return b.Bytes(), nil
 }
