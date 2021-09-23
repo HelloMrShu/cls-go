@@ -31,10 +31,6 @@ func main() {
 	ch := make(chan int64, 1)
 	ch <- time.Now().Unix() - 10
 
-	log.WithFields(logrus.Fields{
-		"name": "gaoqi",
-		"age" : 10,
-	}).Info("test log1")
 	for {
 		if cls.CheckMoment() {
 			categories := strings.Split(app.Conf.Cls.Hot.Categories, ",")
