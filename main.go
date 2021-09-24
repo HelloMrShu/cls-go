@@ -4,32 +4,25 @@ import (
 	"finance/app"
 	"finance/cls"
 	"flag"
-	"github.com/sirupsen/logrus"
-	"os"
 	"strings"
 	"time"
 )
 
 var env string
-var log = logrus.New()
 
 func init() {
 	flag.StringVar(&env, "c", "local", "conf path")
 	flag.Parse()
 	config := "./conf/" + env + ".json"
 	app.NewCycle(config)
-
-	log.SetReportCaller(true)
-	log.SetFormatter(&app.LogFormatter{})
-	log.SetOutput(os.Stdout)
-	file, _ := os.OpenFile("./logs/app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0755)
-	log.SetOutput(file)
-	log.SetLevel(logrus.InfoLevel)
+	app.InitLogger()
 }
 
 func main() {
 	ch := make(chan int64, 1)
 	ch <- time.Now().Unix() - 10
+
+	//app.Logger.WithFields(logrus.Fields{"name":"abc", "age":110}).Info("请求异常")
 
 	for {
 		if cls.CheckMoment() {
