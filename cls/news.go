@@ -6,6 +6,7 @@ import (
 	msg "finance/message"
 	util "finance/utils"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -85,7 +86,7 @@ func NewsRequest(lt int64) int64 {
 
 	resp, err := (&http.Client{}).Do(req)
 	if err != nil {
-		fmt.Println(err)
+		app.Logger.WithFields(logrus.Fields{"error": err}).Error("请求news接口异常")
 		return lt
 	}
 	defer resp.Body.Close()

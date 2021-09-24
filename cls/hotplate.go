@@ -6,6 +6,7 @@ import (
 	msg "finance/message"
 	util "finance/utils"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -55,7 +56,7 @@ func HotRequest(category string) bool {
 
 	resp, err := (&http.Client{}).Do(req)
 	if err != nil {
-		fmt.Println(err)
+		app.Logger.WithFields(logrus.Fields{"error": err}).Error("请求hot plate接口异常")
 		return false
 	}
 	defer resp.Body.Close()

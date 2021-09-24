@@ -22,8 +22,6 @@ func main() {
 	ch := make(chan int64, 1)
 	ch <- time.Now().Unix() - 10
 
-	//app.Logger.WithFields(logrus.Fields{"name":"abc", "age":110}).Info("请求异常")
-
 	for {
 		if cls.CheckMoment() {
 			categories := strings.Split(app.Conf.Cls.Hot.Categories, ",")
