@@ -109,7 +109,7 @@ func NewsRequest(lt int64) int64 {
 		return time.Now().Unix()
 	}
 
-	fmt.Println("新闻消息推送条数：", updateNum)
+	app.Logger.Info("新闻消息推送条数: " + string(updateNum))
 	newTs := time.Now().Unix()
 	for _, v := range news {
 		msgInfo := GenNewsMessage(v.Brief)
