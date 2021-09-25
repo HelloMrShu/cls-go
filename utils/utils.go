@@ -57,6 +57,5 @@ func GetHotPlateMoment() map[string]bool {
 	m := make(map[string]bool)
 	m["12:01"] = true
 	m["15:01"] = true
-	m["12:35"] = true
 	return m
 }
