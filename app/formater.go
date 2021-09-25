@@ -20,8 +20,7 @@ func (m *LogFormatter) Format(entry *logrus.Entry) ([]byte, error){
 	}
 
 	timestamp := entry.Time.Format("2006-01-02 15:04:05")
-	prefix := fmt.Sprintf("%s %s message:\"%s\" ", timestamp, entry.Level, entry.Message)
-	b.WriteString(prefix)
+	message := fmt.Sprintf("%s %s message:\"%s\" ", timestamp, entry.Level, entry.Message)
 
 	if len(entry.Data) > 0 {
 		b.WriteString("data:")
@@ -30,9 +29,10 @@ func (m *LogFormatter) Format(entry *logrus.Entry) ([]byte, error){
 			str := fmt.Sprintf("%s=%v", key, value)
 			data = append(data, str)
 		}
-		dataString := strings.Join(data, ",")
-		b.WriteString("\"" + dataString + "\"\n")
+		fieldsData := strings.Join(data, ",")
+		message += fieldsData
 	}
+	b.WriteString(message + "\n")
 
 	return b.Bytes(), nil
 }

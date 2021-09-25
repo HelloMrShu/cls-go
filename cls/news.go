@@ -113,7 +113,7 @@ func NewsRequest(lt int64) int64 {
 	newTs := time.Now().Unix()
 	for _, v := range news {
 		keywords := extractSubjects(v.Subjects)
-		msgInfo := GenNewsMessage(v.Brief + "\n\n" + keywords)
+		msgInfo := GenNewsMessage(v.Brief + keywords)
 		msg.SendNotice(msgInfo)
 		newTs = int64(v.SortScore)
 	}
@@ -121,12 +121,17 @@ func NewsRequest(lt int64) int64 {
 }
 
 func extractSubjects(subjects []Subjects) string {
+
+	if len(subjects) <= 0 {
+		return ""
+	}
+
 	var items []string
 	for _, v := range subjects {
 		items = append(items, v.SubjectName)
 	}
 
-	return "关键词：" + strings.Join(items, ",")
+	return "\n\n关键词：" + strings.Join(items, ",")
 }
 
 func GenNewsMessage(data string) string {
