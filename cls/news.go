@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -55,12 +56,11 @@ type News struct {
 	CommentNum int           `json:"comment_num"`
 	Status     int           `json:"status"`
 	Category   string        `json:"category"`
-	Shareurl   string        `json:"shareurl"`
 	ShareNum   int           `json:"share_num"`
-	SubTitles  []interface{} `json:"sub_titles"`
 	StockList  []interface{} `json:"stock_list"`
 	IsAd       int           `json:"is_ad"`
 	AudioURL   []string      `json:"audio_url"`
+	Subjects   []Subjects    `json:"subjects"`
 }
 
 type Txt struct {
@@ -112,20 +112,27 @@ func NewsRequest(lt int64) int64 {
 	app.Logger.Info("新闻消息推送条数: " + strconv.Itoa(updateNum))
 	newTs := time.Now().Unix()
 	for _, v := range news {
-		msgInfo := GenNewsMessage(v.Brief)
+		keywords := extractSubjects(v.Subjects)
+		msgInfo := GenNewsMessage(v.Brief + "\n\n" + keywords)
 		msg.SendNotice(msgInfo)
 		newTs = int64(v.SortScore)
 	}
 	return newTs
 }
 
-func GenNewsMessage(data string) string {
-	var txt Txt
-	txt.Content = data
+func extractSubjects(subjects []Subjects) string {
+	var items []string
+	for _, v := range subjects {
+		items = append(items, v.SubjectName)
+	}
 
-	var nt Notice
+	return "关键词：" + strings.Join(items, ",")
+}
+
+func GenNewsMessage(data string) string {
+	nt := new(Notice)
 	nt.MsgType = "text"
-	nt.Text = txt
+	nt.Text.Content = data
 
 	notice, _ := json.Marshal(nt)
 	return string(notice)
