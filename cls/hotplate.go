@@ -69,7 +69,7 @@ func HotRequest(category string) bool {
 		return false
 	}
 
-	title := convertName(category) + "板块：\n"
+	title := convertName(category) + "：\n"
 
 	plates := make([]string, 0)
 	plates = append(plates, title)
@@ -105,8 +105,8 @@ func CheckMoment() bool {
 // 板块中英文转换
 func convertName(cat string) string {
 	mp := make(map[string]string)
-	mp["industry"] = "行业"
-	mp["concept"] = "概念"
+	mp["industry"] = "行业板块"
+	mp["concept"] = "概念板块"
 
 	zh, ok := mp[cat]
 
