@@ -88,6 +88,11 @@ func HotRequest(category string) bool {
 // CheckMoment 检查热门板块发送时刻
 func CheckMoment() bool {
 	now := time.Now()
+	weekday := now.Weekday().String()
+	if weekday == "Sunday" || weekday == "Saturday" {
+		return false
+	}
+
 	hourMinute := now.Format("15:04") //时分
 	moment := util.GetHotPlateMoment()
 	_, ok := moment[hourMinute]
