@@ -143,6 +143,7 @@ func GenNewsMessage(data string) string {
 	return string(notice)
 }
 
+// CheckNewsMoment 新闻发送时间段
 func CheckNewsMoment() bool {
 	now := time.Now()
 	hour, err := strconv.Atoi(now.Format("15")) //小时
@@ -151,7 +152,7 @@ func CheckNewsMoment() bool {
 		return false
 	}
 
-	if hour > 22 && hour < 7 {
+	if hour >= 23 || hour <= 7 { //早8点-晚10点发送
 		return false
 	}
 	return true
