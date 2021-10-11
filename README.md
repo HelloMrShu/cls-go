@@ -19,3 +19,7 @@
     或者
     1 go run main.go
 
+## 配置Dockerfile
+    具体内容见Dockerfile文件
+    构建镜像docker build -t cls .
+    运行容器docker run cls
