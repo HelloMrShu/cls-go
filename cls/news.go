@@ -105,19 +105,18 @@ func NewsRequest(lt int64) int64 {
 	updateNum := r.Data.UpdateNum
 	news := r.Data.RollData
 
+	curTs := time.Now().Unix()
 	if updateNum == 0 {
-		return time.Now().Unix()
+		return curTs
 	}
 
 	app.Logger.Info("新闻消息推送条数: " + strconv.Itoa(updateNum))
-	newTs := time.Now().Unix()
 	for _, v := range news {
 		keywords := extractSubjects(v.Subjects)
 		msgInfo := GenNewsMessage(v.Brief + keywords)
 		msg.SendNotice(msgInfo)
-		newTs = int64(v.SortScore)
 	}
-	return newTs
+	return curTs
 }
 
 func extractSubjects(subjects []Subjects) string {
