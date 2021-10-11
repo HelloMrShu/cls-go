@@ -1,5 +1,5 @@
 FROM golang:1.16
-
+ENV TZ=Asia/Shanghai
 ENV GO111MODULE=on
 ENV GOOS=linux
 ENV	GOPROXY=https://goproxy.cn
@@ -11,6 +11,5 @@ ADD go.mod .
 RUN go mod download
 
 RUN go build .
-EXPOSE 8000
 
 ENTRYPOINT ["./finance"]
