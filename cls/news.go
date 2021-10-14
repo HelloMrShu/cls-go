@@ -114,7 +114,7 @@ func NewsRequest(lt int64) int64 {
 
 	app.Logger.Info("新闻消息推送条数: " + strconv.Itoa(updateNum))
 	for _, v := range news {
-		keywords := extractSubjects(v.Subjects)
+		keywords := extractSubjects(v.Subjects, v.Recommend)
 		msgInfo := GenNewsMessage(v.Brief + keywords)
 		msg.SendNotice(msgInfo)
 		curTs = int64(v.SortScore)
@@ -122,7 +122,7 @@ func NewsRequest(lt int64) int64 {
 	return curTs
 }
 
-func extractSubjects(subjects []Subjects) string {
+func extractSubjects(subjects []Subjects, recommend int) string {
 
 	if len(subjects) <= 0 {
 		return ""
@@ -133,7 +133,12 @@ func extractSubjects(subjects []Subjects) string {
 		items = append(items, v.SubjectName)
 	}
 
-	return "\n\n关键词：" + strings.Join(items, ",")
+	keywords := strings.Join(items, ",")
+	if recommend > 0 {
+		keywords = keywords + " →推荐"
+	}
+
+	return "\n\n关键词：" + keywords
 }
 
 func GenNewsMessage(data string) string {
