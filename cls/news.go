@@ -94,12 +94,14 @@ func NewsRequest(lt int64) int64 {
 
 	r := Result{}
 	err1 := json.Unmarshal(body, &r)
-	if err1 != nil {
-		fmt.Println("json to struct error")
+	if r.Error != 0 {
+		app.Logger.Error("cls request error")
+		return lt
 	}
 
-	if r.Error != 0 {
-		fmt.Println("cls request error")
+	if err1 != nil {
+		app.Logger.Error("解析body时，发生错误")
+		return lt
 	}
 
 	updateNum := r.Data.UpdateNum
@@ -115,6 +117,7 @@ func NewsRequest(lt int64) int64 {
 		keywords := extractSubjects(v.Subjects)
 		msgInfo := GenNewsMessage(v.Brief + keywords)
 		msg.SendNotice(msgInfo)
+		curTs = int64(v.SortScore)
 	}
 	return curTs
 }
