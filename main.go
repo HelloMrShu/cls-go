@@ -14,7 +14,7 @@ func init() {
 	flag.StringVar(&env, "c", "local", "conf path")
 	flag.Parse()
 	config := "./conf/" + env + ".json"
-	app.NewCycle(config)
+	app.Init(config)
 	app.InitLogger()
 }
 

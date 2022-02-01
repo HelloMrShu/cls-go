@@ -34,7 +34,7 @@ type Config struct {
 	Charset     string  `json:"charset"`
 }
 
-func NewCycle(conf string) {
+func Init(conf string) {
 	var (
 		data []byte
 		err  error
