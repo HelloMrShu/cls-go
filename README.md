@@ -1,5 +1,5 @@
 ## cls-go
-    Request cls news and hotplates message and send to dingding group by robot
+    请求财联社新闻及热门板块信息，通过钉钉机器人发送群消息
 
 ## 项目介绍
     本项目基于Go语言实现财联社新闻及每日热门板块的准实时消息推送
