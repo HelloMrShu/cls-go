@@ -35,10 +35,10 @@ func InitLogger() {
 		}
 	}
 
-	file, fErr := os.OpenFile(logFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0755)
+	src, fErr := os.OpenFile(logFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0755)
 	if fErr != nil {
 		fmt.Println("open log file err ", fErr)
 	}
-	Logger.SetOutput(file)
+	Logger.SetOutput(src)
 	Logger.SetLevel(logrus.InfoLevel)
 }

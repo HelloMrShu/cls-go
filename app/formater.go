@@ -23,7 +23,6 @@ func (m *LogFormatter) Format(entry *logrus.Entry) ([]byte, error){
 	message := fmt.Sprintf("%s %s message:\"%s\" ", timestamp, entry.Level, entry.Message)
 
 	if len(entry.Data) > 0 {
-		b.WriteString("data:")
 		var data []string
 		for key, value := range entry.Data {
 			str := fmt.Sprintf("%s=%v", key, value)
